@@ -25,7 +25,6 @@ public class HibernateOneToManyTest {
     private BasicDataSource dataSource;
     private SessionFactory sessionFactory;
 
-    @SuppressWarnings("deprecation")
 	@Before
     public void setUp()  {
         dataSource = new BasicDataSource();
