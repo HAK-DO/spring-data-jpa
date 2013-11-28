@@ -20,11 +20,6 @@ import lombok.Setter;
 @Entity
 public class Customer {
 
-	@Override
-	public String toString() {
-		return getClass().getName() + " {\n\tid: " + id + "\n\tforename: " + forename + "\n\tsurname: " + surname + "\n\taddresses: " + addresses + "\n\tpaymentCards: " + paymentCards + "\n}";
-	}
-
 	@Setter
 	private Long id;
 	@Setter
