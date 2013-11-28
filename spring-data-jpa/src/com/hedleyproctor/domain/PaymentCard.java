@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 public class PaymentCard {
