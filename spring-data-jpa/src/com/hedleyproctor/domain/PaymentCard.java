@@ -7,16 +7,27 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Data
 public class PaymentCard {
+	@Setter
 	private Long id;
+	@Setter
+	@Getter
 	private String type;
+	@Setter
+	@Getter
 	private String cardNumber;
+	@Setter
+	@Getter
 	private String expiryDate;
+	@Setter
+	@Getter
 	private String nameOnCard;
+	@Setter
 	private Customer customer;
 
 	@Id

@@ -1,15 +1,13 @@
 package com.hedleyproctor;
 
-import java.util.Set;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hedleyproctor.config.AppConfig;
 import com.hedleyproctor.domain.Address;
@@ -19,12 +17,11 @@ import com.hedleyproctor.repository.CustomerRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=AppConfig.class)
+@Transactional
 public class JpaDataTest {
 
 	@Autowired CustomerRepository customerRepository;
 	
-	@PersistenceContext
-    private EntityManager em;
 
 //	@Test 
 	public void insertCustomerAddress(){
@@ -75,12 +72,10 @@ public class JpaDataTest {
 
         Iterable<Customer> customers = customerRepository.findAll();
         for (Customer cus : customers) {
-            Set<Address> addresses = cus.getAddresses();
+        	List<PaymentCard> cards = cus.getPaymentCards();
+        	for (PaymentCard paymentCard : cards) {
+				System.out.println(paymentCard);
+			}
         }
-//        Customer retrievedCustomer = (Customer) customerRepository.findOne(1L);
-//        List<PaymentCard> paymentCards = retrievedCustomer.getPaymentCards();
-//        for (PaymentCard paymentCard : paymentCards) {
-//			System.out.println(paymentCard);
-//		}
 	}
 }
