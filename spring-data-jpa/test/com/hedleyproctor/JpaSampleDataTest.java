@@ -9,21 +9,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hedleyproctor.config.AppConfig;
 import com.hedleyproctor.domain.Address;
 import com.hedleyproctor.domain.Customer;
 import com.hedleyproctor.domain.PaymentCard;
 import com.hedleyproctor.repository.CustomerRepository;
 
+import config.AppConfig;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=AppConfig.class)
-@Transactional
-public class JpaDataTest {
+public class JpaSampleDataTest {
 
 	@Autowired CustomerRepository customerRepository;
 	
 
 //	@Test 
+//	@Transactional(propagation=Propagation.REQUIRED)
 	public void insertCustomerAddress(){
 		Customer customer = new Customer();
         customer.setForename("Joe");
@@ -42,7 +43,8 @@ public class JpaDataTest {
         customer.addAddress(workAddress);
 		customerRepository.save(customer);
 	}
-	@Test public void insertCustomerCard(){
+//	@Test
+	public void insertCustomerCard(){
         Customer customer = new Customer();
         customer.setForename("Joe");
         customer.setSurname("Bloggs");
@@ -70,6 +72,11 @@ public class JpaDataTest {
         customer.addPaymentCard(amex,1);
         customerRepository.save(customer);
 
+	}
+	
+	@Test
+	@Transactional
+	public void select(){
         Iterable<Customer> customers = customerRepository.findAll();
         for (Customer cus : customers) {
         	List<PaymentCard> cards = cus.getPaymentCards();
