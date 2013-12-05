@@ -22,19 +22,23 @@ import javax.persistence.SecondaryTable;
 import com.google.common.base.Objects;
 
 @Entity(name = "item")
-@SecondaryTable(name = "inventory",
-        pkJoinColumns = @PrimaryKeyJoinColumn(name = "itemid", referencedColumnName = "itemid"))
+@SecondaryTable(
+		name = "inventory",
+        pkJoinColumns = @PrimaryKeyJoinColumn(
+        		name = "itemid", 
+        		referencedColumnName = "itemid"))
 @NamedQueries({
-        @NamedQuery(name = "Item.getItemListByProduct",
+        @NamedQuery(
+        		name = "Item.getItemListByProduct",
                 query = "select i from item i where i.product = :product"),
-        @NamedQuery(name = "Item.getInventoryQuantity",
+        @NamedQuery(
+        		name = "Item.getInventoryQuantity",
                 query = "select i.quantity from item i where i.itemId = :itemId"),
-        @NamedQuery(name = "Item.updateInventoryQuantity",
+        @NamedQuery(
+        		name = "Item.updateInventoryQuantity",
                 query = "update item i set i.quantity = i.quantity - :increment where i.itemId = :itemId")
 })
-public class Item
-        extends BaseDomain
-        implements Serializable {
+public class Item extends BaseDomain implements Serializable {
 
 	private static final long serialVersionUID = -3981484093907996532L;
 
@@ -82,9 +86,8 @@ public class Item
     protected Item() {}
 
     public Item(@Nonnull final String itemId, @Nonnull final Product product) {
-        checkNotNull(itemId, "Argument[itemId] must not be null");
-        checkNotNull(product, "Argument[product] must not be null");
         this.itemId = itemId;
+        this.product = product;
     }
 
 

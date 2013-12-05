@@ -35,16 +35,15 @@ public class ProductTest {
 		}
 	};
 
-	// @Test
+	@Test
 	public void insertProduct() {
 		Category category = new Category("TEST000000");
-		String maxId = productRepository.getMaxByCategoryId(category.getCategoryId());
-		String productId = generateProductId(maxId);
+		String productId = generateProductId(category);
 		Product prduct = new Product(productId, category);
 		productRepository.save(prduct);
 	}
 
-	@Test
+//	@Test
 	public void findByCategory() {
 		List<Product> products = productRepository.findByCategory(new Category("TEST000000"), new PageRequest(0, 4));
 		for (Product product : products) {
@@ -59,15 +58,16 @@ public class ProductTest {
 	 * @param category
 	 * @return
 	 */
-	private String generateProductId(String maxId) {
-		if (StringUtils.isEmpty(maxId)) {
+	private String generateProductId(Category category) {
+		String max = productRepository.getMaxByCategoryId(category.getCategoryId());
+		if (StringUtils.isEmpty(max)) {
 			StringBuffer sb = new StringBuffer();
 			sb.append(THREAD_LOCAL_DATEFORMAT.get().format(new Date()));
 			sb.append("-");
 			sb.append(String.format("%06d", 1));
 			return sb.toString();
 		} else {
-			String[] token = maxId.split("\\-");
+			String[] token = max.split("\\-");
 			StringBuffer sb = new StringBuffer();
 			sb.append(THREAD_LOCAL_DATEFORMAT.get().format(new Date()));
 			sb.append("-");

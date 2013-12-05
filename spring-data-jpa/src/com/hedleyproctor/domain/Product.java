@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,7 +37,6 @@ public class Product implements Serializable {
 	private String name;
 
 	@Nullable
-	@Lob 
 	@Column(name = "descn", nullable = true, length = 255)
 	private String description;
 	
@@ -52,7 +50,7 @@ public class Product implements Serializable {
 	@JoinColumn(name = "categoryid", referencedColumnName = "catid")
 	private Category category;
 
-	protected Product() {
+	protected Product(){
 	}
 
 	public Product(@Nonnull final String productId, @Nonnull final Category category) {
@@ -117,6 +115,7 @@ public class Product implements Serializable {
 	public int hashCode() {
 		return Objects.hashCode(getProductId());
 	}
+	
 	@PreUpdate
 	@PrePersist
 	public void updateTimeStamps() {
