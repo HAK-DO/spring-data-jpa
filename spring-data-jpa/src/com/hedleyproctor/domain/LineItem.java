@@ -19,9 +19,7 @@ import com.google.common.base.Objects;
 @IdClass(LineItemID.class)
 @NamedQuery(name = "LineItem.getLineItemsByOrderId",
         query = "select li from lineitem li where li.orderId = :orderId")
-public class LineItem
-        extends BaseDomain
-        implements Serializable {
+public class LineItem extends BaseDomain implements Serializable {
 
 	private static final long serialVersionUID = -7575933134109821050L;
 
