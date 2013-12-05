@@ -26,44 +26,47 @@ import config.AppConfig;
 @ContextConfiguration(classes = AppConfig.class)
 public class ProductTest {
 
-	@Autowired ProductRepository productRepository;
-	
+	@Autowired
+	ProductRepository productRepository;
+
 	private static final ThreadLocal<DateFormat> THREAD_LOCAL_DATEFORMAT = new ThreadLocal<DateFormat>() {
-	    protected DateFormat initialValue() {
-	        return new SimpleDateFormat("yyyyMM");
-	    }
+		protected DateFormat initialValue() {
+			return new SimpleDateFormat("yyyyMM");
+		}
 	};
-	
-//	@Test
-	public void insertProduct(){
+
+	// @Test
+	public void insertProduct() {
 		Category category = new Category("TEST000000");
 		String maxId = productRepository.getMaxByCategoryId(category.getCategoryId());
 		String productId = generateProductId(maxId);
 		Product prduct = new Product(productId, category);
 		productRepository.save(prduct);
 	}
-	
+
 	@Test
-	public void findByCategory(){ 
+	public void findByCategory() {
 		List<Product> products = productRepository.findByCategory(new Category("TEST000000"), new PageRequest(0, 4));
 		for (Product product : products) {
 			System.out.println(product);
 		}
 	}
+
 	/**
 	 * temp use
+	 * 
 	 * @param maxId
 	 * @param category
 	 * @return
 	 */
 	private String generateProductId(String maxId) {
-		if(StringUtils.isEmpty(maxId)){
+		if (StringUtils.isEmpty(maxId)) {
 			StringBuffer sb = new StringBuffer();
 			sb.append(THREAD_LOCAL_DATEFORMAT.get().format(new Date()));
 			sb.append("-");
 			sb.append(String.format("%06d", 1));
 			return sb.toString();
-		}else{
+		} else {
 			String[] token = maxId.split("\\-");
 			StringBuffer sb = new StringBuffer();
 			sb.append(THREAD_LOCAL_DATEFORMAT.get().format(new Date()));
