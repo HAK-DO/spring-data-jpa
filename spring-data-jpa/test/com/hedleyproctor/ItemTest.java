@@ -23,7 +23,7 @@ public class ItemTest {
 	@Test
 	public void insertItem() {
 		Product product = new Product("201312-000005", new Category("TEST000000"));
-		Item item = new Item("test123", product);
+		Item item = new Item("test1234", product);
 		itemRepository.save(item);
 	}
 }
