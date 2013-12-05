@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 import com.google.common.base.Objects;
+import com.hedleyproctor.domain.builder.CategoryBuilder;
 
 @Entity(name = "category")
 @NamedQuery(name = "Category.getCategoryList",
@@ -81,5 +82,11 @@ public class Category implements Serializable {
     public int hashCode() {
         return Objects.hashCode(getCategoryId());
     }
-
+    @Nonnull public static Category copy(@Nonnull final Category category) {
+        checkNotNull(category, "Argument[category] must not be null");
+        return new CategoryBuilder(category.getCategoryId())
+                .name(category.getName())
+                .description(category.getDescription())
+                .build();
+    }
 }

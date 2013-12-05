@@ -3,6 +3,7 @@ package com.hedleyproctor.domain;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 import javax.annotation.Nonnull;
 import javax.persistence.Column;
@@ -11,6 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.TableGenerator;
+import static org.springframework.util.ReflectionUtils.findField;
+import static org.springframework.util.ReflectionUtils.makeAccessible;
+import static org.springframework.util.ReflectionUtils.setField;
+import com.hedleyproctor.domain.builder.SupplierBuilder;
 
 /**
  * @author Igor Baiborodine
@@ -133,5 +138,27 @@ public class Supplier
 
     public void setPhone(final String phone) {
         this.phone = phone;
+    }
+    @Nonnull public static Supplier copy(@Nonnull final Supplier supplier) {
+        checkNotNull(supplier, "Argument[supplier] must not be null");
+        Supplier copy = new SupplierBuilder(supplier.getName(), supplier.getStatus())
+                .addr1(supplier.getAddr1())
+                .addr2(supplier.getAddr2())
+                .city(supplier.getCity())
+                .state(supplier.getState())
+                .zip(supplier.getZip())
+                .phone(supplier.getPhone())
+                .build();
+        if (supplier.getVersion() != null) {
+            Field versionField = findField(Supplier.class, "version");
+            makeAccessible(versionField);
+            setField(versionField, copy, supplier.getId());
+        }
+        if (supplier.getId() != null) {
+            Field idField = findField(Supplier.class, "suppid");
+            makeAccessible(idField);
+            setField(idField, copy, supplier.getId());
+        }
+        return copy;
     }
 }

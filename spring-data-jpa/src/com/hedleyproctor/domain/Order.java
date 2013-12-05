@@ -22,17 +22,20 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity(name = "orders")
-@TableGenerator(name = "order_seq_gen",
-        table = "sequence",
-        pkColumnName = "name",
-        valueColumnName = "nextid",
-        pkColumnValue = "order_seq"
-)
-@SecondaryTable(name = "orderstatus",
-        pkJoinColumns = @PrimaryKeyJoinColumn(name = "orderid", referencedColumnName = "orderid")
-)
-@NamedQuery(name = "Order.getOrdersByUsername",
-        query = "select o from orders o where o.username = :username")
+@TableGenerator(
+		name = "order_seq_gen", 
+		table = "sequence", 
+		pkColumnName = "name", 
+		valueColumnName = "nextid", 
+		pkColumnValue = "order_seq")
+@SecondaryTable(
+		name = "orderstatus", 
+		pkJoinColumns = @PrimaryKeyJoinColumn(
+				name = "orderid", 
+				referencedColumnName = "orderid"))
+@NamedQuery(
+		name = "Order.getOrdersByUsername", 
+		query = "select o from orders o where o.username = :username")
 public class Order
         extends BaseDomain
         implements BaseEntity, Serializable {

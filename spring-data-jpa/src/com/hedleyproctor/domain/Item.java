@@ -93,7 +93,11 @@ public class Item
         return itemId;
     }
     // no setter for itemId
-
+    public void setSupplier(@Nullable final Supplier supplier) {
+        if (supplier != null) {
+            this.supplier = Supplier.copy(supplier);
+        }
+    }
     @Nonnull
     public Product getProduct() {
         return product;
