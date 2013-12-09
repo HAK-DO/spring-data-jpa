@@ -3,11 +3,12 @@ package com.hedleyproctor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.hedleyproctor.domain.Account;
-import com.hedleyproctor.repository.AccountRepository;
+import com.hedleyproctor.service.AccountService;
+import com.hedleyproctor.service.EntityLoader;
 
 import config.ApplicationConfig;
 
@@ -18,26 +19,19 @@ import config.ApplicationConfig;
 @ContextConfiguration(classes = ApplicationConfig.class)
 public class AccountTest {
 
-	@Autowired AccountRepository accountRepository;
 
-//	@Test
-	public void saveOrUpdateAccount() {
-		Account account = accountRepository.findOne("TEST2");
-		if (account == null) {
-			account = new Account();
-			account.setEmail("TEST2");
-		}
-//		BannerData bannerData = new BannerData();
-//		bannerData.setFavouriteCategoryId("TEST");
-//		account.setBannerData(bannerData);
-		account.setPassword("qwer12345");
-		accountRepository.save(account);
-	}
+	@Autowired EntityLoader entityLoader;
+	
+	@Autowired AccountService accountService;
 	
 	@Test
+	public void saveOrUpdateAccount() {
+		entityLoader.load();
+	}
+	
+//	@Test
 	public void findOne(){
-		Account account = accountRepository.findOne("TEST2");
-		System.out.println(account);
-		
+		UserDetails userDetails = accountService.loadUserByUsername("TEST2");
+		System.out.println(userDetails);
 	}
 }
