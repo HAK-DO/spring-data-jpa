@@ -26,8 +26,7 @@ import config.AppConfig;
 @ContextConfiguration(classes = AppConfig.class)
 public class ProductTest {
 
-	@Autowired
-	ProductRepository productRepository;
+	@Autowired ProductRepository productRepository;
 
 	private static final ThreadLocal<DateFormat> THREAD_LOCAL_DATEFORMAT = new ThreadLocal<DateFormat>() {
 		protected DateFormat initialValue() {
