@@ -38,7 +38,7 @@ public class AccountTest {
 	@Transactional
 	public void findOne(){
 		Account account = accountRepository.findOne("TEST2");
-		System.out.println(account.getBannerData());
+		System.out.println(account);
 		
 	}
 }
