@@ -8,4 +8,7 @@ import com.hedleyproctor.domain.Account;
  * @author hdlee <br/>
  * @category account<br/> singon<br/> profile
  */
-public interface AccountRepository extends CrudRepository<Account, String>{}
+public interface AccountRepository extends CrudRepository<Account, String>{
+	Account findByEmail(String email);
+}
+

@@ -17,13 +17,13 @@ import com.hedleyproctor.domain.Category;
 import com.hedleyproctor.domain.Product;
 import com.hedleyproctor.repository.ProductRepository;
 
-import config.AppConfig;
+import config.ApplicationConfig;
 
 /**
  * @author hdlee
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = ApplicationConfig.class)
 public class ProductTest {
 
 	@Autowired ProductRepository productRepository;

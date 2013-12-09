@@ -14,7 +14,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
 @EnableJpaRepositories("com.hedleyproctor")
-public class AppConfig {
+public class ApplicationConfig {
 
 	@Bean
 	public DataSource dataSource() {

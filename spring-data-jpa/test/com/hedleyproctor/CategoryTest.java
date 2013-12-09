@@ -9,13 +9,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.hedleyproctor.domain.Category;
 import com.hedleyproctor.repository.CategoryRepository;
 
-import config.AppConfig;
+import config.ApplicationConfig;
 
 /**
  * @author hdlee
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = ApplicationConfig.class)
 public class CategoryTest {
 
 	@Autowired CategoryRepository categoryRepository;

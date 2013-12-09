@@ -9,13 +9,13 @@ import com.hedleyproctor.domain.Category;
 import com.hedleyproctor.domain.Item;
 import com.hedleyproctor.domain.Product;
 import com.hedleyproctor.repository.ItemRepository;
-import config.AppConfig;
+import config.ApplicationConfig;
 
 /**
  * @author hdlee
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = ApplicationConfig.class)
 public class ItemTest {
 
 	@Autowired ItemRepository itemRepository;

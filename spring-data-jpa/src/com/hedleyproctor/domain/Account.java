@@ -3,6 +3,9 @@ package com.hedleyproctor.domain;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,14 +18,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.SecondaryTables;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity(name = "account")
 @SecondaryTables({ @SecondaryTable(name = "signon", pkJoinColumns = @PrimaryKeyJoinColumn(name = "email", referencedColumnName = "email")), @SecondaryTable(name = "profile", pkJoinColumns = @PrimaryKeyJoinColumn(name = "email", referencedColumnName = "email")) })
 @NamedQueries({ @NamedQuery(name = "Account.getAccountByUsername", query = "select a from account a where a.email = :email"), @NamedQuery(name = "Account.getAccountByUsernameAndPassword", query = "select a from account a where a.email = :email and a.password = :password") })
-public class Account extends BaseDomain implements Serializable {
+public class Account extends BaseDomain implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 5892174125806724316L;
 	
@@ -255,5 +261,42 @@ public class Account extends BaseDomain implements Serializable {
 	public String toString() {
 		return getClass().getName() + " {\n\temail: " + email + "\n\tfirstName: " + firstName + "\n\tlastName: " + lastName + "\n\tstatus: " + status + "\n\taddress1: " + address1 + "\n\taddress2: " + address2 + "\n\tcity: " + city + "\n\tstate: " + state + "\n\tzip: " + zip + "\n\tcountry: " + country + "\n\tphone: " + phone + "\n\tpassword: " + password + "\n\tlanguagePreference: " + languagePreference + "\n\tfavouriteCategoryId: " + favouriteCategoryId + "\n\tlistOption: " + listOption + "\n\tbannerOption: " + bannerOption + "\n\tbannerData: " + bannerData + "\n}";
 	}
-	
+
+    @OneToMany
+    private Set<Authority> grantedAuthorities = new HashSet<Authority>();
+
+    @Override
+    public Collection<Authority> getAuthorities() {
+            return grantedAuthorities;
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+            return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+            return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+            return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+            return true;
+    }
+
+    public Set<Authority> getGrantedAuthorities() {
+            return grantedAuthorities;
+    }
+
+    public void setGrantedAuthorities(Set<Authority> grantedAuthorities) {
+            this.grantedAuthorities = grantedAuthorities;
+    }
+
 }

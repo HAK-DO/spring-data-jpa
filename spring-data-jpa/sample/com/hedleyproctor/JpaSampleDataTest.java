@@ -12,12 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hedleyproctor.domain.Address;
 import com.hedleyproctor.domain.Customer;
 import com.hedleyproctor.domain.PaymentCard;
-import com.hedleyproctor.repository.CustomerRepository;
 
-import config.AppConfig;
+import config.ApplicationConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=AppConfig.class)
+@ContextConfiguration(classes=ApplicationConfig.class)
 public class JpaSampleDataTest {
 
 	@Autowired CustomerRepository customerRepository;

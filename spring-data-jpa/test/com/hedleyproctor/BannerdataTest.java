@@ -9,13 +9,13 @@ import com.hedleyproctor.domain.BannerData;
 import com.hedleyproctor.domain.Category;
 import com.hedleyproctor.repository.BannerRepository;
 import com.hedleyproctor.repository.CategoryRepository;
-import config.AppConfig;
+import config.ApplicationConfig;
 
 /**
  * @author hdlee
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = ApplicationConfig.class)
 public class BannerdataTest {
 
 	@Autowired BannerRepository bannerRepository;
