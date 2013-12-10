@@ -9,9 +9,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+
 import com.hedleyproctor.service.AccountService;
 import com.hedleyproctor.service.EntityLoader;
+
 import config.ApplicationConfig;
 
 /**
@@ -25,19 +26,19 @@ public class AccountTest {
 
 	@Autowired AccountService accountService;
 
-	// @Test
+//	 @Test
 	public void saveOrUpdateAccount() {
 		entityLoader.load();
 	}
 
-	//	@Test
+		@Test
 	public void findOne() {
 		UserDetails userDetails = accountService.loadUserByUsername("TEST2");
 		System.out.println(userDetails);
 	}
 	
-	@Test
-	@Transactional(readOnly = true)
+//	@Test
+//	@Transactional(readOnly = true)
 	public void auth(){
 		UserDetails userDetails = accountService.loadUserByUsername("TEST2");
         Authentication authToken = new UsernamePasswordAuthenticationToken (userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());

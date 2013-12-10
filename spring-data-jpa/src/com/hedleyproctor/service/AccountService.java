@@ -5,6 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.hedleyproctor.domain.Account;
 import com.hedleyproctor.repository.AccountRepository;
 
 /**
@@ -18,11 +20,10 @@ public class AccountService implements UserDetailsService {
 	/* (non-Javadoc)
 	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
 	 */
-	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDetails user = accountRepository.findByEmail(username);
-		if (user == null)
+		Account account = accountRepository.findByEmail(username);
+		if (account == null)
 			throw new UsernameNotFoundException(username);
-		return user;
+		return account;
 	}
 }
