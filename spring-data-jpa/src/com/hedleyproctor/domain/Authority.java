@@ -2,6 +2,7 @@ package com.hedleyproctor.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -27,4 +28,16 @@ public class Authority implements GrantedAuthority {
     public void setAuthority(String authority) {
             this.authority = authority;
     }
+    
+    private Account account;
+    
+    @ManyToOne
+    public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
 }

@@ -3,7 +3,6 @@ package com.hedleyproctor.domain;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -265,11 +264,9 @@ public class Account extends BaseDomain implements Serializable, UserDetails {
 	@OneToMany(cascade = CascadeType.ALL)
     private Set<Authority> grantedAuthorities = new HashSet<Authority>();
 
-    @Override
-    public Collection<Authority> getAuthorities() {
-            return grantedAuthorities;
+    public Set<Authority> getAuthorities() {
+        return grantedAuthorities;
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
