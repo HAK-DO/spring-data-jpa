@@ -1,6 +1,7 @@
 package config;
 
 import javax.servlet.ServletContext;
+
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
@@ -11,8 +12,8 @@ public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplic
             return true;
     }
 
-//    @Override
-//    protected void beforeSpringSecurityFilterChain(ServletContext servletContext) {
-//            insertFilters(servletContext, new OpenEntityManagerInViewFilter());
-//    }
+    @Override
+    protected void beforeSpringSecurityFilterChain(ServletContext servletContext) {
+         insertFilters(servletContext, new OpenEntityManagerInViewFilter());
+    }
 }
