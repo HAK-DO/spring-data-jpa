@@ -19,18 +19,19 @@ import config.ApplicationConfig;
 @ContextConfiguration(classes = ApplicationConfig.class)
 public class AccountTest {
 
+	@Autowired
+	EntityLoader entityLoader;
 
-	@Autowired EntityLoader entityLoader;
-	
-	@Autowired AccountService accountService;
-	
-	@Test
+	@Autowired
+	AccountService accountService;
+
+	// @Test
 	public void saveOrUpdateAccount() {
 		entityLoader.load();
 	}
-	
-//	@Test
-	public void findOne(){
+
+	@Test
+	public void findOne() {
 		UserDetails userDetails = accountService.loadUserByUsername("TEST2");
 		System.out.println(userDetails);
 	}
