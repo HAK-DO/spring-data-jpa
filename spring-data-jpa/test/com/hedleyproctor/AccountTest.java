@@ -10,10 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.hedleyproctor.service.AccountService;
 import com.hedleyproctor.service.EntityLoader;
-
 import config.ApplicationConfig;
 
 /**
@@ -39,7 +37,7 @@ public class AccountTest {
 	}
 	
 	@Test
-	@Transactional
+	@Transactional(readOnly = true)
 	public void auth(){
 		UserDetails userDetails = accountService.loadUserByUsername("TEST2");
         Authentication authToken = new UsernamePasswordAuthenticationToken (userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
