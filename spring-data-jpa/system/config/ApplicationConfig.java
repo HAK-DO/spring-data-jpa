@@ -34,18 +34,24 @@ import com.hedleyproctor.service.BaseService;
 @EnableJpaRepositories(basePackageClasses = {BaseRepository.class, AccountRepository.class})
 @ComponentScan(basePackageClasses = { BaseContoller.class, BaseService.class, AccountService.class })
 @PropertySource("classpath:app.properties")
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 public class ApplicationConfig {
 
 	@Autowired Environment env;
 
 	@Bean
 	public DataSource dataSource() {
-		return new DriverManagerDataSource(env.getProperty("url"), env.getProperty("username"), env.getProperty("password"));
+		DriverManagerDataSource dataSource= new DriverManagerDataSource();
+		dataSource.setDriverClassName(env.getProperty("driver"));
+		dataSource.setUsername(env.getProperty("username"));
+		dataSource.setPassword(env.getProperty("password"));
+		dataSource.setUrl(env.getProperty("url"));
+		return dataSource;
 	}
 
 
     @Bean(name = "entityManagerFactory")
+    @Autowired
     public EntityManagerFactory entityManagerFactory() {
             HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
             vendorAdapter.setDatabase(Database.MYSQL);
@@ -56,7 +62,10 @@ public class ApplicationConfig {
             jpaPropertyMap.put("hibernate.hbm2ddl.auto", "auto");
             jpaPropertyMap.put("hibernate.show_sql", "true");
             jpaPropertyMap.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-
+//            jpaPropertyMap.put("hibernate.cache.use_second_level_cache", "true");
+//            jpaPropertyMap.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
+//            jpaPropertyMap.put("hibernate.cache.use_query_cache", "true");
+//            jpaPropertyMap.put("hibernate.generate_statistics", "true");
             factory.setJpaPropertyMap(jpaPropertyMap);
             factory.setJpaVendorAdapter(vendorAdapter);
             factory.setPackagesToScan(BaseEntity.class.getPackage().getName());
@@ -76,6 +85,7 @@ public class ApplicationConfig {
     public PlatformTransactionManager transactionManager() {
             JpaTransactionManager txManager = new JpaTransactionManager();
             txManager.setEntityManagerFactory(entityManagerFactory());
+            txManager.setJpaDialect(jpaDialect());
             return txManager;
     }
 }
