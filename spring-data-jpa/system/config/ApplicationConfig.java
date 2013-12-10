@@ -14,9 +14,14 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
+import com.hedleyproctor.controller.BaseContoller;
+import com.hedleyproctor.domain.BaseDomain;
+import com.hedleyproctor.repository.BaseRepository;
+import com.hedleyproctor.service.BaseService;
+
 @Configuration
-@EnableJpaRepositories("com.hedleyproctor")
-@ComponentScan("com.hedleyproctor.service")
+@EnableJpaRepositories(basePackageClasses = BaseRepository.class)
+@ComponentScan(basePackageClasses = {BaseContoller.class, BaseService.class})
 public class ApplicationConfig {
 
 	@Bean
@@ -34,7 +39,7 @@ public class ApplicationConfig {
 		LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
 		lef.setDataSource(dataSource);
 		lef.setJpaVendorAdapter(jpaVendorAdapter);
-		lef.setPackagesToScan("com.hedleyproctor.domain");
+		lef.setPackagesToScan(BaseDomain.class.getPackage().getName());
 		return lef;
 	}
 
