@@ -11,9 +11,9 @@ public class BaseContoller {
 	
 	@Autowired AccountRepository repository;
 	
-	@RequestMapping("/")
+	@RequestMapping("/index")
 	public String index(){
-		System.out.println(repository.findOne("TEST2"));
-		return "basic/Home";
+		repository.findOne("TEST2");
+		return "basic/home";
 	}
 }
