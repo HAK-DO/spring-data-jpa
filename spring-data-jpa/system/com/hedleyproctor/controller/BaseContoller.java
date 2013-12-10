@@ -14,6 +14,6 @@ public class BaseContoller {
 	@RequestMapping("/")
 	public String index(){
 		System.out.println(repository.findOne("TEST2"));
-		return "basic/About";
+		return "basic/Home";
 	}
 }

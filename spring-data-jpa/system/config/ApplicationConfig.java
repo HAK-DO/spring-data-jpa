@@ -23,16 +23,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.hedleyproctor.controller.BaseContoller;
+import com.hedleyproctor.BaseClass;
 import com.hedleyproctor.domain.BaseEntity;
-import com.hedleyproctor.repository.AccountRepository;
-import com.hedleyproctor.repository.BaseRepository;
-import com.hedleyproctor.service.AccountService;
-import com.hedleyproctor.service.BaseService;
+import com.hedleyproctor.repository.BaseRepositoryClass;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = {BaseRepository.class, AccountRepository.class})
-@ComponentScan(basePackageClasses = { BaseContoller.class, BaseService.class, AccountService.class })
+@EnableJpaRepositories(basePackageClasses = {BaseRepositoryClass.class})
+@ComponentScan(basePackageClasses = {BaseClass.class})
 @PropertySource("classpath:app.properties")
 @EnableTransactionManagement(proxyTargetClass = true)
 public class ApplicationConfig {
@@ -49,43 +46,33 @@ public class ApplicationConfig {
 		return dataSource;
 	}
 
-
     @Bean(name = "entityManagerFactory")
-    @Autowired
     public EntityManagerFactory entityManagerFactory() {
-            HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-            vendorAdapter.setDatabase(Database.MYSQL);
-
-            LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-
-            Map<String, String> jpaPropertyMap = new HashMap<String, String>();
-            jpaPropertyMap.put("hibernate.hbm2ddl.auto", "auto");
-            jpaPropertyMap.put("hibernate.show_sql", "true");
-            jpaPropertyMap.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-//            jpaPropertyMap.put("hibernate.cache.use_second_level_cache", "true");
-//            jpaPropertyMap.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
-//            jpaPropertyMap.put("hibernate.cache.use_query_cache", "true");
-//            jpaPropertyMap.put("hibernate.generate_statistics", "true");
-            factory.setJpaPropertyMap(jpaPropertyMap);
-            factory.setJpaVendorAdapter(vendorAdapter);
-            factory.setPackagesToScan(BaseEntity.class.getPackage().getName());
-            factory.setDataSource(dataSource());
-
-            factory.afterPropertiesSet();
-
-            return factory.getObject();
+    	HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+    	vendorAdapter.setDatabase(Database.MYSQL);
+    	LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+    	Map<String, String> jpaPropertyMap = new HashMap<String, String>();
+    	jpaPropertyMap.put("hibernate.hbm2ddl.auto", "auto");
+    	jpaPropertyMap.put("hibernate.show_sql", "true");
+    	jpaPropertyMap.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+    	factory.setJpaPropertyMap(jpaPropertyMap);
+    	factory.setJpaVendorAdapter(vendorAdapter);
+    	factory.setPackagesToScan(BaseEntity.class.getPackage().getName());
+    	factory.setDataSource(dataSource());
+    	factory.afterPropertiesSet();
+    	return factory.getObject();
     }
 
     @Bean
     public JpaDialect jpaDialect() {
-            return new HibernateJpaDialect();
+    	return new HibernateJpaDialect();
     }
 
     @Bean
     public PlatformTransactionManager transactionManager() {
-            JpaTransactionManager txManager = new JpaTransactionManager();
-            txManager.setEntityManagerFactory(entityManagerFactory());
-            txManager.setJpaDialect(jpaDialect());
-            return txManager;
+    	JpaTransactionManager txManager = new JpaTransactionManager();
+    	txManager.setEntityManagerFactory(entityManagerFactory());
+    	txManager.setJpaDialect(jpaDialect());
+    	return txManager;
     }
 }

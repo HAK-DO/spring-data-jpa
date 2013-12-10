@@ -1,3 +1,3 @@
 package com.hedleyproctor.repository;
 
-public class BaseRepository {}
+public class BaseRepositoryClass {}
