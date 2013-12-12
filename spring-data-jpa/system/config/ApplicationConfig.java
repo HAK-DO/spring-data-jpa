@@ -1,12 +1,18 @@
 package config;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,15 +29,17 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.googlecode.flickrjandroid.FlickrBaseClass;
 import com.hedleyproctor.BaseClass;
 import com.hedleyproctor.domain.BaseEntity;
 import com.hedleyproctor.repository.BaseRepositoryClass;
 
 @Configuration
 @EnableJpaRepositories(basePackageClasses = {BaseRepositoryClass.class})
-@ComponentScan(basePackageClasses = {BaseClass.class})
+@ComponentScan(basePackageClasses = {BaseClass.class, FlickrBaseClass.class})
 @PropertySource("classpath:app.properties")
 @EnableTransactionManagement(proxyTargetClass = true)
+@EnableCaching
 public class ApplicationConfig {
 
 	@Autowired Environment env;
@@ -75,4 +83,20 @@ public class ApplicationConfig {
     	txManager.setJpaDialect(jpaDialect());
     	return txManager;
     }
+    
+	@Bean
+	public SimpleCacheManager cacheManager(){
+		SimpleCacheManager cacheManager = new SimpleCacheManager();
+		List<Cache> caches = new ArrayList<Cache>();
+		caches.add(cacheBean().getObject());
+		cacheManager.setCaches(caches );
+		return cacheManager;
+	}
+	
+	@Bean
+	public ConcurrentMapCacheFactoryBean cacheBean(){
+		ConcurrentMapCacheFactoryBean cacheFactoryBean = new ConcurrentMapCacheFactoryBean();
+		cacheFactoryBean.setName("default");
+		return cacheFactoryBean;
+	}
 }

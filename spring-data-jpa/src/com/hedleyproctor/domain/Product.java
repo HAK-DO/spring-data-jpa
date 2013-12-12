@@ -39,7 +39,11 @@ public class Product implements Serializable {
 	@Nullable
 	@Column(name = "descn", nullable = true, length = 255)
 	private String description;
-	
+
+	@Nullable
+	@Column(name = "imageUrl", nullable = true, length = 255)
+	private String imageUrl;
+
     @Nonnull
     @Column(name = "createdate", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)

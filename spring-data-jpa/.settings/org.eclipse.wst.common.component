@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/system"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/sample"/>
         <wb-resource deploy-path="/" source-path="/web"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/api"/>
         <property name="context-root" value="spring-data-jpa"/>
         <property name="java-output-path" value="/spring-data-jpa/target/classes"/>
     </wb-module>

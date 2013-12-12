@@ -25,6 +25,19 @@ public class BannerData implements Serializable {
 
     @Column(name = "bannername", nullable = true, length = 255)
     private String bannerName;
+    
+    @Column(name = "imageUrl", nullable = true, length = 255)
+    private String imageUrl;
+    
+    @Column(name = "seq")
+    private int seq;
+    
+    @Column(name = "description", nullable = true, length = 255)
+    private String description;
+    
+    @Column(name = "title")
+    private String title;
+    
 
     public BannerData() {}
 
@@ -50,4 +63,42 @@ public class BannerData implements Serializable {
     public void setBannerName(@Nullable final String bannerName) {
         this.bannerName = bannerName;
     }
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public int getSeq() {
+		return seq;
+	}
+
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + " {\n\tfavouriteCategoryId: " + favouriteCategoryId + "\n\tbannerName: " + bannerName + "\n\timageUrl: " + imageUrl + "\n\tseq: " + seq + "\n\tdescription: " + description + "\n\ttitle: " + title + "\n}";
+	}
+    
 }
