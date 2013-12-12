@@ -22,7 +22,7 @@ import config.ApplicationConfig;
 public class BannerdataTest {
 
 	@Autowired FlickrService flickrService;
-	@Autowired private Environment env;
+	@Autowired Environment env;
 
 	@Test
 	public void getBanner(){
