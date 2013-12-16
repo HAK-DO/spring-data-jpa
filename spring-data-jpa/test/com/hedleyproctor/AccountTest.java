@@ -28,7 +28,12 @@ public class AccountTest {
 		UserDetails userDetails = accountService.loadUserByUsername("TEST2");
 		System.out.println(userDetails);
 	}
-	
+
+//	@Test
+	public void load() {
+		accountService.load();
+	}
+
 //	@Test
 	public void auth(){
 		UserDetails userDetails = accountService.loadUserByUsername("TEST2");

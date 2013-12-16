@@ -261,12 +261,7 @@ public class Account extends BaseDomain implements Serializable, UserDetails {
 		return getClass().getName() + " {\n\temail: " + email + "\n\tfirstName: " + firstName + "\n\tlastName: " + lastName + "\n\tstatus: " + status + "\n\taddress1: " + address1 + "\n\taddress2: " + address2 + "\n\tcity: " + city + "\n\tstate: " + state + "\n\tzip: " + zip + "\n\tcountry: " + country + "\n\tphone: " + phone + "\n\tpassword: " + password + "\n\tlanguagePreference: " + languagePreference + "\n\tfavouriteCategoryId: " + favouriteCategoryId + "\n\tlistOption: " + listOption + "\n\tbannerOption: " + bannerOption + "\n\tbannerData: " + bannerData + "\n}";
 	}
 
-	@OneToMany(cascade = CascadeType.ALL)
-    private Set<Authority> grantedAuthorities = new HashSet<Authority>();
 
-    public Set<Authority> getAuthorities() {
-        return grantedAuthorities;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -287,13 +282,13 @@ public class Account extends BaseDomain implements Serializable, UserDetails {
     public boolean isEnabled() {
             return true;
     }
-
-    public Set<Authority> getGrantedAuthorities() {
-            return grantedAuthorities;
-    }
-
-    public void setGrantedAuthorities(Set<Authority> grantedAuthorities) {
-            this.grantedAuthorities = grantedAuthorities;
+    
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="email")
+    private Set<Authority> grantedAuthorities = new HashSet<Authority>();
+	
+    public Set<Authority> getAuthorities() {
+        return grantedAuthorities;
     }
 
 }

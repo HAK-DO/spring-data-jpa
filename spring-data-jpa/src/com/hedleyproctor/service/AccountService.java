@@ -1,11 +1,14 @@
 package com.hedleyproctor.service;
 
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.hedleyproctor.domain.Account;
 import com.hedleyproctor.domain.Authority;
 import com.hedleyproctor.repository.AccountRepository;
@@ -44,5 +47,26 @@ public class AccountService implements UserDetailsService {
 		if (account == null)
 			throw new UsernameNotFoundException(username);
 		return account;
+	}
+
+	public Account create(Account account) {
+		return accountRepository.save(account);
+	}
+
+	@Transactional
+	public Account read(String email) {
+		return accountRepository.findOne(email);
+	}
+
+	public void update(Account account) {
+		accountRepository.save(account);
+	}
+
+	public void delete(String email) {
+		accountRepository.delete(email);
+	}
+
+	public Object list() {
+		return accountRepository.findAll();
 	}
 }

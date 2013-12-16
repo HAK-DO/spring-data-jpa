@@ -1,5 +1,8 @@
 package config;
 
+import javax.servlet.Filter;
+
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -18,12 +21,13 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] { "*.do" };
+		return new String[] { "/" };
 	}
     
-//    @Override
-//    protected Filter[] getServletFilters() {
-//            return new Filter[] { new OpenEntityManagerInViewFilter(), new DelegatingFilterProxy("springSecurityFilterChain") };
-////            return new Filter[] { new OpenEntityManagerInViewFilter() };
-//    }
+    @Override
+    protected Filter[] getServletFilters() {
+            return new Filter[] { new OpenEntityManagerInViewFilter()
+//            , new DelegatingFilterProxy("springSecurityFilterChain") 
+            };
+    }
 }

@@ -1,10 +1,10 @@
 package com.hedleyproctor.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.hedleyproctor.domain.Item;
 
 /**
  * @author hdlee <br/>
  */
-public interface ItemRepository extends CrudRepository<Item, String> {}
+public interface ItemRepository extends PagingAndSortingRepository<Item, String> {}

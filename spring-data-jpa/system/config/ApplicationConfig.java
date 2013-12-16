@@ -60,7 +60,7 @@ public class ApplicationConfig {
     	vendorAdapter.setDatabase(Database.MYSQL);
     	LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
     	Map<String, String> jpaPropertyMap = new HashMap<String, String>();
-    	jpaPropertyMap.put("hibernate.hbm2ddl.auto", "auto");
+    	jpaPropertyMap.put("hibernate.hbm2ddl.auto", "create");
     	jpaPropertyMap.put("hibernate.show_sql", "true");
     	jpaPropertyMap.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
     	factory.setJpaPropertyMap(jpaPropertyMap);
